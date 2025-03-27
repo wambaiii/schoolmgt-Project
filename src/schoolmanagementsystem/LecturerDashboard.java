@@ -5,57 +5,59 @@ import java.awt.*;
 
 public class LecturerDashboard {
     private JFrame frame;
+    private JPanel panel;
 
     public LecturerDashboard() {
         frame = new JFrame("Lecturer Dashboard");
-        frame.setSize(900, 600);
+        frame.setSize(600, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        JLabel background = new JLabel(new ImageIcon("src/resources/university.jpg.png"));
-        background.setLayout(new BorderLayout());
+        // Title Label
+        JLabel titleLabel = new JLabel("Lecturer Dashboard", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(new Color(153, 0, 51));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setPreferredSize(new Dimension(600, 50));
 
+        // Panel for Buttons
+        panel = new JPanel();
+        panel.setLayout(new GridLayout(6, 1, 10, 10));
+        panel.setBackground(new Color(255, 230, 230));
 
-        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
-        panel.setOpaque(false);
-
+        // Buttons
         JButton manageCourses = new JButton("Manage Courses");
-        JButton enrollStudents = new JButton("Enroll Students");
-        JButton markAttendance = new JButton("Mark Attendance");
+        JButton manageEnrollments = new JButton("Manage Enrollments");
+        JButton manageAttendance = new JButton("Manage Attendance");
         JButton viewAnalytics = new JButton("View Analytics");
-        JButton viewStudents = new JButton("View Students");
         JButton logout = new JButton("Logout");
 
-        manageCourses.setBackground(new Color(10, 153, 176));
-        enrollStudents.setBackground(new Color(200, 200, 0));
-        markAttendance.setBackground(new Color(255, 153, 51));
-        viewAnalytics.setBackground(new Color(122, 51, 25));
-        viewStudents.setBackground(new Color(200, 10, 102));
-        logout.setBackground(Color.MAGENTA);
+        // Button Styling
+        JButton[] buttons = {manageCourses, manageEnrollments, manageAttendance, viewAnalytics, logout};
+        for (JButton button : buttons) {
+            button.setFont(new Font("Arial", Font.BOLD, 16));
+            button.setBackground(new Color(204, 0, 51));
+            button.setForeground(Color.WHITE);
+            button.setFocusPainted(false);
+            panel.add(button);
+        }
 
-        manageCourses.setForeground(Color.WHITE);
-        enrollStudents.setForeground(Color.WHITE);
-        markAttendance.setForeground(Color.WHITE);
-        viewAnalytics.setForeground(Color.WHITE);
-        viewStudents.setForeground(Color.WHITE);
-        logout.setForeground(Color.WHITE);
-
-        panel.add(manageCourses);
-        panel.add(enrollStudents);
-        panel.add(markAttendance);
-        panel.add(viewAnalytics);
-        panel.add(viewStudents);
-        panel.add(logout);
-
-        background.add(panel, BorderLayout.CENTER);
-        frame.add(background);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
+        // Event Listeners for Buttons
+        manageCourses.addActionListener(e -> new LecCourseMgt());
+        manageEnrollments.addActionListener(e -> new LecEnrollMgt());
+        manageAttendance.addActionListener(e -> new LecAttendanceMgt());
+        viewAnalytics.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Analytics Page (To be implemented)"));
         logout.addActionListener(e -> {
             frame.dispose();
-            new LoginGui();
+            new LoginGui(); // Navigate back to login
         });
+
+        // Adding Components to Frame
+        frame.add(titleLabel, BorderLayout.NORTH);
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
