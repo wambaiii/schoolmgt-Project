@@ -20,7 +20,6 @@ public class StudentMgt {
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setPreferredSize(new Dimension(400, 50));
 
-        // Panel for Buttons
         panel = new JPanel();
         panel.setLayout(new GridLayout(4, 1, 10, 10));
         panel.setBackground(new Color(230, 240, 255));
@@ -30,7 +29,6 @@ public class StudentMgt {
         JButton viewStudents = new JButton("View Students");
         JButton goBack = new JButton("Go Back");
 
-        // Button Styling
         JButton[] buttons = {addStudent, deleteStudent, viewStudents, goBack};
         for (JButton button : buttons) {
             button.setFont(new Font("Arial", Font.BOLD, 14));
@@ -39,10 +37,8 @@ public class StudentMgt {
             panel.add(button);
         }
 
-        // Go Back Button Action
         goBack.addActionListener(e -> frame.dispose());
 
-        // Adding Components to Frame
         frame.add(titleLabel, BorderLayout.NORTH);
         frame.add(panel, BorderLayout.CENTER);
         frame.setLocationRelativeTo(null);
